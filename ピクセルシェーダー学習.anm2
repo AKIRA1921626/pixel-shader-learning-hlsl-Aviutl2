@@ -38,10 +38,17 @@ SamplerState samp   : register(s0);
 // 引数 uv  : 現在処理しているピクセルの相対座標。画像の左上が(0.0, 0.0)で、右下が(1.0, 1.0)になる。
 // 戻り値   : このピクセルにおける最終的な「色(R, G, B, アルファ値)」
 
-// このSV_Position,TEXCOORDはセマンティクスと呼ばれるものであり、これを指定することで、pos,uvに何の数値が入るかが決まり、その数値が自動で入るようになる。
-// SV_Targetもセマンティクスだが、これはこの関数（この場合はpsmain）がどこに出力されるかを決定するためのセマンティクスである。
-// 変数名を「apple」や「orange」に変えても、ラベルが正しければ中身は正しく入る
-// Semantics
+// SV_Position, TEXCOORD は「セマンティクス」と呼ばれるラベルです。
+// これを指定することで、変数 pos や uv に「何の数値を入れるか」が予約され、
+// GPUによって現在のピクセルの座標やUV値が自動的に代入されます。
+//
+// SV_Target もセマンティクスの一種ですが、これは「関数の戻り値」に付けるラベルです。
+// これにより、計算結果が「描画対象（ターゲット）に書き込むべき色」として認識されます。
+//
+// 重要なのは、変数名を「apple」や「orange」に変えても、このラベル（ラベル名）さえ
+// 正しければ、中身はGPUによって正しく流し込まれるという点です。
+//
+// Semantics (公式ドキュメント)
 // https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     
