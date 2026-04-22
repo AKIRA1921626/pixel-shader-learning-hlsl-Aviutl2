@@ -64,7 +64,7 @@ float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     // color.rgba = color.rgba * float4(val1, val2, val3, val4);
 
     // (B) 元の画像を無視して、トラックバーで指定した色でべた塗りする
-    color.rgba = float4(val1, val2, val3, val4);
+    // color.rgba = float4(val1, val2, val3, val4);
 
     // (C) 白黒を反転させる (ネガポジ反転)
     // 1.0(真っ白) から元の色を引くことで逆の色になります。
