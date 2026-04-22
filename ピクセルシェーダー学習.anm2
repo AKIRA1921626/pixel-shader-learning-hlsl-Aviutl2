@@ -15,7 +15,8 @@
 // cbuffer (定数バッファ): Lua側から渡した細かい数値（track barの値など）を入れる「数値専用の箱(b0)」です。
 // Lua側の obj.pixelshader の第4引数の配列順番通りにフロート(float)型で入ります。
 // Lua側で指定した配列が順番に入ります。b0を指定することでLua側のデータと同期します。
-// ここでのregister()は後のregisterとは違う場所であり、b0となっています。  
+// ここでのregister()は後のregisterとは違う場所であり、b0となっています。
+// これらの値は、val1,val2,val3,val4で呼び出すことができます。
 cbuffer constant0 : register(b0) {
     float val1; // 1番目の値
     float val2; // 2番目の値
@@ -27,7 +28,8 @@ cbuffer constant0 : register(b0) {
 // これらは数値ではなく「画像データ(t0)」と「読み方ルール(s0)」という
 // 数値用(b0)とは物理的に異なる窓口（レジスタ）に格納されます。
 // resourceとして設定したバッファ(ここでは "object") が入ります。
-// ここでのregister()は前のregisterとは違う場所であり、t0とs0となっています。  
+// ここでのregister()は前のregisterとは違う場所であり、t0とs0となっています。
+// t0,s0の値は、texでt0,sampでs0の値を呼び出すことができます。
 Texture2D tex       : register(t0);
 SamplerState samp   : register(s0);
 
@@ -42,8 +44,9 @@ float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     
     // 【基本】 元の画像の同じ位置(uv)から、元の色を取得します。
     // tex.Sampleという命令を使うと簡単に取り出せます。
+    // ソース：Texture2D::Sample メソッド
+    // https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-to-sample
     float4 color = tex.Sample(samp, uv);
-
 
     // ==========================================
     // ★学習ポイント★
