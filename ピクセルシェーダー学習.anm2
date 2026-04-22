@@ -16,7 +16,7 @@
 // Lua側の obj.pixelshader の第4引数の配列順番通りにフロート(float)型で入ります。
 // Lua側で指定した配列が順番に入ります。b0を指定することでLua側のデータと同期します。
 // ここでのregister()は後のregisterとは違う場所であり、b0となっています。
-// これらの値は、val1,val2,val3,val4で呼び出すことができます。
+// cbuffer内の変数名（val1, val2...）を使って、届いた数値をプログラム内で「参照」できます。
 cbuffer constant0 : register(b0) {
     float val1; // 1番目の値
     float val2; // 2番目の値
@@ -25,11 +25,9 @@ cbuffer constant0 : register(b0) {
 };
 
 // Texture2D と SamplerState: Lua側から渡した「元の画像」を参照するための変数です。
-// これらは数値ではなく「画像データ(t0)」と「読み方ルール(s0)」という
-// 数値用(b0)とは物理的に異なる窓口（レジスタ）に格納されます。
-// resourceとして設定したバッファ(ここでは "object") が入ります。
-// ここでのregister()は前のregisterとは違う場所であり、t0とs0となっています。
-// t0,s0の値は、texでt0,sampでs0の値を呼び出すことができます。
+// これらは数値用(b0)とは異なる窓口（レジスタ）に格納される「画像データ(t0)」と「読み方ルール(s0)」です。
+// Lua側で resource として設定した画像（"object"など）が t0 に届きます。
+// プログラム内では、tex という名前で画像(t0)を、samp という名前でルール(s0)を扱います。
 Texture2D tex       : register(t0);
 SamplerState samp   : register(s0);
 
