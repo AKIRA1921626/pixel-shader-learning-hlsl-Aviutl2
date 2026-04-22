@@ -14,6 +14,7 @@
 
 // cbuffer (定数バッファ): Lua側から渡した細かい数値（track barの値など）を入れる箱です。
 // Lua側の obj.pixelshader の第4引数の配列順番通りにフロート(float)型で入ります。
+// ここでのregister()はb0となっています。  
 cbuffer constant0 : register(b0) {
     float val1;
     float val2;
@@ -23,6 +24,7 @@ cbuffer constant0 : register(b0) {
 
 // Texture2D と SamplerState: Lua側から渡した「元の画像」を参照するための変数です。
 // resourceとして設定したバッファ(ここでは "object") が入ります。
+// ここでのregister()はt0とs0となっています。  
 Texture2D tex       : register(t0);
 SamplerState samp   : register(s0);
 
