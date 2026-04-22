@@ -12,17 +12,20 @@
 // 1. 変数の受け取り（AviUtl -> HLSLへの橋渡し）
 // ==========================================
 
-// cbuffer (定数バッファ): Lua側から渡した細かい数値（track barの値など）を入れる箱です。
+// cbuffer (定数バッファ): Lua側から渡した細かい数値（track barの値など）を入れる「数値専用の箱(b0)」です。
 // Lua側の obj.pixelshader の第4引数の配列順番通りにフロート(float)型で入ります。
+// Lua側で指定した配列が順番に入ります。b0を指定することでLua側のデータと同期します。
 // ここでのregister()は後のregisterとは違う場所であり、b0となっています。  
 cbuffer constant0 : register(b0) {
-    float val1;
-    float val2;
-    float val3;
-    float val4;
+    float val1; // 1番目の値
+    float val2; // 2番目の値
+    float val3; // 3番目の値
+    float val4; // 4番目の値
 };
 
 // Texture2D と SamplerState: Lua側から渡した「元の画像」を参照するための変数です。
+// これらは数値ではなく「画像データ(t0)」と「読み方ルール(s0)」という
+// 数値用(b0)とは物理的に異なる窓口（レジスタ）に格納されます。
 // resourceとして設定したバッファ(ここでは "object") が入ります。
 // ここでのregister()は前のregisterとは違う場所であり、t0とs0となっています。  
 Texture2D tex       : register(t0);
