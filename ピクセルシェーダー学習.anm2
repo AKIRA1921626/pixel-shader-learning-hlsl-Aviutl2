@@ -4,7 +4,7 @@
 --track3:透明度,0,100,50,0.1
 --select@target:target=0,object=0,tempbuffer=1,framebuffer=2
 --select@resource:resource=0,object=0,tempbuffer=1,framebuffer=2,random=3
---select@blend:blend=0,copy=0,mask=1,draw=2,add=3
+--select@blend:blend=2,copy=0,mask=1,draw=2,add=3
 --select@sampler:sampler=0,clip=0,clamp=1,loop=2,mirror=3,dot=4
 
 --[[pixelshader@psmain:
@@ -50,6 +50,7 @@ SamplerState samp   : register(s0);
 //
 // Semantics (公式ドキュメント)
 // https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
+
 float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     
     // 【基本】 元の画像の同じ位置(uv)から、元の色を取得します。
@@ -88,16 +89,23 @@ float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     // 左端が uv.x = 0.0、右端が uv.x = 1.0 になります。
     // ----------------------------------------
 
-    // (D) 横方向のグラデーションにする（右に行くほど明るくなる）
-    // color.rgb = color.rgb * uv.x;
+    // トラックバーで設定した色を、1つの変数にまとめます。
+    float3 customColor = float3(val1, val2, val3);
 
-    // (E) 縦方向のグラデーションにする（下に行くほど明るくなる）
-    // color.rgb = color.rgb * uv.y;
+    // (D) 横方向のグラデーション（右に行くほど、トラックバーで指定した色が強くなる）
+    // color.rgb = color.rgb * customColor * uv.x;
+
+    // (E) 縦方向のグラデーション（下に行くほど、トラックバーで指定した色が強くなる）
+    // color.rgb = color.rgb * customColor * uv.y;
 
     // (F) 中心から外側に向かうグラデーションにする
     // distance() という命令で、中心(0.5, 0.5)からの距離を測っています。
     // float dist = distance(uv, float2(0.5, 0.5));
-    // color.rgb = color.rgb * dist;
+    // color.rgb = color.rgb * customColor * dist;
+
+    // ★おまけ: 元の画像を無視して「透明から指定色へ」のグラデーションを作る場合はこうします
+    // color.rgb = customColor * uv.x;
+    // color.a = val4 * uv.x;
 
 
     // ----------------------------------------
