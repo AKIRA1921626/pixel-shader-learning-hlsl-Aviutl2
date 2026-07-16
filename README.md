@@ -22,6 +22,11 @@ https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-se
 組み込み関数  
 https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions  
 
-
+他の学習ソース:  
+The Book of Shaders  
+(GLSL用だが、シェーダー系を学ぶ上では解説がわかりやすく、わかりやすいHLSLの解説は見つからなかったため、このサイトのGLSLをHLSLに文法を置き換えてから学習する。わからないところはAIなどに聞く。）  
+https://thebookofshaders.com/?lan=jp  
+The Book of Shadersでの学習はYMM4作成者も推奨している。  
+https://x.com/manju_summoner/status/1820004216720539950  
 
 **二次配布可、改変可、クレジット不要**
