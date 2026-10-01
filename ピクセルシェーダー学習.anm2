@@ -9,6 +9,7 @@
 
 --[[pixelshader@psmain:
 // --[pixelshader@psmain:」における"psmain"の部分の名称は任意であり自由に決めていいが、後の「2. メインの処理」の「float4 psmain()」の"psmain"の部分と一致させておく必要がある。
+// ここの@につづく「シェーダーの名称」と「2. メインの処理」の個所の名称が一致していなければ、「invalid shader name」となりエラーとなる。
 // ==========================================
 // 1. 変数の受け取り（AviUtl -> HLSLへの橋渡し）
 // ==========================================
@@ -53,6 +54,7 @@ SamplerState samp   : register(s0);
 // https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 
 // --[pixelshader@psmain:」において設定した"psmain"の部分の名称と、下記の"psmain"の部分は一致させておく必要がある。
+// 「シェーダーの名称」と下記の「メインの処理」の個所の名称が一致していなければ、「invalid shader name」となりエラーとなる。
 float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     
     // 【基本】 元の画像の同じ位置(uv)から、元の色を取得します。
