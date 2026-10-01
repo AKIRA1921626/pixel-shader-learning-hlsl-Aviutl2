@@ -8,6 +8,7 @@
 --select@sampler:sampler=0,clip=0,clamp=1,loop=2,mirror=3,dot=4
 
 --[[pixelshader@psmain:
+// --[pixelshader@psmain:」における"psmain"の部分の名称は任意であり自由に決めていいが、後の「2. メインの処理」の「float4 psmain()」の"psmain"の部分と一致させておく必要がある。
 // ==========================================
 // 1. 変数の受け取り（AviUtl -> HLSLへの橋渡し）
 // ==========================================
@@ -51,6 +52,7 @@ SamplerState samp   : register(s0);
 // Semantics (公式ドキュメント)
 // https://learn.microsoft.com/ja-jp/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics
 
+// --[pixelshader@psmain:」において設定した"psmain"の部分の名称と、下記の"psmain"の部分は一致させておく必要がある。
 float4 psmain(float4 pos : SV_Position, float2 uv : TEXCOORD) : SV_Target {
     
     // 【基本】 元の画像の同じ位置(uv)から、元の色を取得します。
@@ -200,7 +202,7 @@ end
 -- ============================
 -- obj.pixelshader 関数を呼び出して実行
 -- ============================
--- 引数1: 例: "psmain"   -> 上で定義したシェーダーの登録名 -- 定数
+-- 引数1: 例: "psmain"   -> 上で定義したシェーダーの登録名 -- 上で定義した時のシェーダーの名称と同じ名称を記載する。
 -- 引数2: 例: "object"   -> 出力先をオブジェクト（自分が表示される領域）にする -- taget_name[target]
 -- 引数3: 例: "object"   -> シェーダーに入力する元の画像（resource / t0）に自身を設定する -- resource_name[resource]
 -- 引数4: 例: {v1,v2,v3,v4} -> 定数バッファ(constant0 / b0) として渡す値の配列 -- 変数:{v1, v2, v3, v4}
